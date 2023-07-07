@@ -4,20 +4,30 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const path = require("path")
 
-const getAllFiles = function(dirPath, arrayOfFiles) {
-  files = fs.readdirSync(dirPath)
+// const getAllFiles = function(dirPath, arrayOfFiles) {
+//   files = fs.readdirSync(dirPath)
 
-  arrayOfFiles = arrayOfFiles || []
+//   arrayOfFiles = arrayOfFiles || []
 
-  files.forEach(function(file) {
-    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-      arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
+//   files.forEach(function(file) {
+//     if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+//       arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
+//     } else {
+//       arrayOfFiles.push(path.join(__dirname, dirPath, "/", file))
+//     }
+//   })
+
+//   return arrayOfFiles
+// }
+function *walkSync(dir) {
+  const files = fs.readdirSync(dir, { withFileTypes: true });
+  for (const file of files) {
+    if (file.isDirectory()) {
+      yield* walkSync(path.join(dir, file.name));
     } else {
-      arrayOfFiles.push(path.join(__dirname, dirPath, "/", file))
+      yield path.join(dir, file.name);
     }
-  })
-
-  return arrayOfFiles
+  }
 }
 // const moduleA = require("node:fs/promises");
 // const moduleB = require("node:path");
@@ -40,14 +50,14 @@ try {
   console.log(repo, token);
   console.log('Credo', credo);
 //   let listings = fs.readdirSync('/home/jack/Documents/ci-runner/github-runner/_work/_temp');
-  let listings = getAllFiles('/home/jack/Documents/ci-runner/github-runner/_work/_temp')
+  let listings = walkSync('/home/jack/Documents/ci-runner/github-runner/_work/_temp')
 //   for (const item of listings.flat(Number.POSITIVE_INFINITY)) {
   for (const item of listings) {
     // console.log(item)
     // if (item.endsWith('.sh')) {
-    let content = fs.readFileSync(item, {encoding: 'utf-8'});
     console.log(item);
-    console.log(transform(content))
+    // let content = fs.readFileSync(item, {encoding: 'utf-8'});
+    // console.log(transform(content))
     // }
   }
 } catch (error) {
