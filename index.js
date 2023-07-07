@@ -2,12 +2,14 @@ const fs = require('fs');
 const commit = require('./commit');
 const core = require('@actions/core');
 const github = require('@actions/github');
-import {readdir} from 'node:fs/promises'
-import {join} from 'node:path'
+const moduleA = require("node:fs/promises");
+const moduleB = require("node:path");
+// import {readdir} from 'node:fs/promises'
+// import {join} from 'node:path'
 
 const walk = async (dirPath) => Promise.all(
-  await readdir(dirPath, { withFileTypes: true }).then((entries) => entries.map((entry) => {
-    const childPath = join(dirPath, entry.name)
+  await moduleA.readdir(dirPath, { withFileTypes: true }).then((entries) => entries.map((entry) => {
+    const childPath = moduleB.join(dirPath, entry.name)
     return entry.isDirectory() ? walk(childPath) : childPath
   })),
 )
