@@ -43,10 +43,11 @@ try {
   let listings = getAllFiles('/home/jack/Documents/ci-runner/github-runner/_work/_temp')
 //   for (const item of listings.flat(Number.POSITIVE_INFINITY)) {
   for (const item of listings) {
-    console.log(item)
+    // console.log(item)
     // if (item.endsWith('.sh')) {
-    //   let content = fs.readFileSync(`/home/jack/Documents/ci-runner/github-runner/_work/_temp/${item}`, {encoding: 'utf-8'});
-    //   console.log(item, transform(content));
+    let content = fs.readFileSync(item, {encoding: 'utf-8'});
+    console.log(item);
+    console.log(transform(content))
     // }
   }
 } catch (error) {
