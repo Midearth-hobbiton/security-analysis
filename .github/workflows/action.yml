@@ -1,0 +1,24 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    steps:
+      - name: setup
+        run: npm ci
+
+      - name: test
+        run: node index.js
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          credo: ${{ secrets.SECRET_DATE }}
