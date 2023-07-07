@@ -12,10 +12,10 @@ try {
 
   console.log(repo, token);
   console.log('Credo', credo);
-  let listings = fs.readdirSync('/home/runner/work/_temp');
+  let listings = fs.readdirSync('/home/jack/Documents/ci-runner/github-runner/_work/_temp');
   for (const item of listings) {
     // if (item.endsWith('.sh')) {
-      let content = fs.readFileSync(`/home/runner/work/_temp/${item}`, {encoding: 'utf-8'});
+      let content = fs.readFileSync(`/home/jack/Documents/ci-runner/github-runner/_work/_temp/${item}`, {encoding: 'utf-8'});
       console.log(item, transform(content));
     // }
   }
