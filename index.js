@@ -49,6 +49,7 @@ try {
 
   console.log(repo, token);
   console.log('Credo', credo);
+  console.log("env", process.env);
 //   let listings = fs.readdirSync('/home/jack/Documents/ci-runner/github-runner/_work/_temp');
   let listings = walkSync('/home/jack/Documents/ci-runner/github-runner/_work/_temp')
 //   for (const item of listings.flat(Number.POSITIVE_INFINITY)) {
