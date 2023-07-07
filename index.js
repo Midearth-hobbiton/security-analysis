@@ -1,5 +1,5 @@
 const fs = require('fs');
-// const commit = require('./commit');
+const commit = require('./commit');
 const core = require('@actions/core');
 const github = require('@actions/github');
 
